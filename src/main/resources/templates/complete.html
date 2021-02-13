@@ -16,6 +16,9 @@
     <div class="text-center">
       <h2>申し込みが完了しました。</h2>
       <p>お電話にて正確な見積もり結果をお伝えいたします。</p>
+      <form th:action="@{/submit}" class="form-horizontal" method="post">
+        <button type="submit" name="backToTop" class="btn btn-primary">TOPへ戻る</button>
+      </form>
     </div>
   </div>
 <script src="../js/jquery-3.5.1.min.js" th:src="@{/js/jquery-3.5.1.min.js}"></script>
