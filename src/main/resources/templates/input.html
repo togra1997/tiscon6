@@ -16,15 +16,17 @@
 <div class="container">
     <form th:action="@{/submit}" th:object="${userOrderForm}" class="form-horizontal" method="post">
         <h1>お見積り情報入力</h1>
-        <ul th:if="${#fields.hasErrors('all')}">
-            <li th:each="err : ${#fields.errors('all')}" th:text="${err}"></li>
-        </ul>
+
         <div class="col-sm-12">
             <fieldset>
                 <legend><b>個人情報</b></legend>
                 <div class="form-group">
                     <label for="customerName">氏名</label>
                     <input type="text" id="customerName" name="customerName" th:field="*{customerName}" class="form-control" value="山田太郎" />
+
+                    <td th:if="${#fields.hasErrors('customerName')}"><span style="color: red" th:each="err : ${#fields.errors('customerName')}" th:text="名前を入力してください"></span></td>
+
+
                 </div>
                 <div class="form-group">
                     <label>連絡先TEL (*半角数字)</label>
@@ -33,15 +35,24 @@
                         <b>&nbsp;-&nbsp;</b><input type="tel" name="number2" th:field="*{tel2}" class="form-control" value="001" maxlength='4' size = "3" pattern="^[0-9]+$">
                         <b>&nbsp;-&nbsp;</b><input type="tel" name="number3" th:field="*{tel3}" class="form-control" value="001" maxlength='4' size = "3" pattern="^[0-9]+$">
                     </div>
+                    <td th:if="(${#fields.hasErrors('tel1') || #fields.hasErrors('tel2') || #fields.hasErrors('tel3')})"><span style="color: red" th:each="err : ${#fields.hasErrors('tel1') || #fields.hasErrors('tel2') || #fields.hasErrors('tel3')}" th:text="電話番号を入力してください"></span></td>
+
                 </div>
                 <div class="form-group">
                     <label for="email">連絡先メールアドレス</label>
                     <input type="text" id="email" name="email" th:field="*{email}" class="form-control" value="test@test.com" placeholder="test@test.com" pattern="^([0-9A-za-z_\.\-]+@[0-9A-za-z_\.\-]+)$" />
+
+
+                    <td th:if="${#fields.hasErrors('email')}"><span style="color: red" th:each="err : ${#fields.errors('email')}" th:text="メールアドレスを半角英数字で入力してください"></span></td>
+
                 </div>
 
                 <div class="form-group">
                     <label for="email">確認用メールアドレス</label>
+
                     <input type="text" id="email2" name="email2"  class="form-control" placeholder="test@test.com" pattern="^([0-9A-za-z_\.\-]+@[0-9A-za-z_\.\-]+)$" oninput="CheckEmail_2(this)"/>
+                    <td th:if="${#fields.hasErrors('email')}"><span style="color: red" th:each="err : ${#fields.errors('email')}" th:text="メールアドレスを半角英数字で入力してください"></span></td>
+
                 </div>
                 <script language="JavaScript" type="text/javascript">
 <!--
@@ -86,6 +97,9 @@
                 <div class="form-group">
                     <label>郵便番号 (*半角数字 *空欄可)</label><br>
                     <input type="text" name="oldZip1" class="form-control-s," pattern="^[0-9]+$"　maxlength="3"> - <input  type="text" name="oldZip2" class="form-control-sm" onKeyUp="AjaxZip3.zip2addr('oldZip1','oldZip2','oldPrefectureId','oldAddress');" pattern="^[0-9]+$" maxlength="4">
+
+
+
                 </div>
                 <div class="form-group">
                     <label for="oldPrefectureId">転居元住所（都道府県）</label>
@@ -97,6 +111,9 @@
                     <label for="oldAddress">転居元住所（市区町村以下）</label>
                     <input type="text" id="oldAddress" name="oldAddress"  th:field="*{oldAddress}"
                            class="form-control" value="新宿区西新宿1-1-1"/>
+                    <td th:if="${#fields.hasErrors('oldAddress')}"><span style="color: red" th:each="err : ${#fields.errors('oldAddress')}" th:text="転居元の住所を記入してください"></span></td>
+
+
                 </div>
 
                 <br>
@@ -114,6 +131,10 @@
                 <div class="form-group">
                     <label for="newAddress">転居先住所（市区町村以下）</label>
                     <input type="text" id="newAddress" name="newAddress" th:field="*{newAddress}" class="form-control" value="札幌市南区1"/>
+
+                    <td th:if="${#fields.hasErrors('newAddress')}"><span style="color: red" th:each="err : ${#fields.errors('newAddress')}" th:text="転居先の住所を記入してください"></span></td>
+
+
                 </div>
             </fieldset>
             <br>
@@ -123,18 +144,35 @@
                 <div class="form-group">
                     <label for="box">段ボールの個数 (*半角数字)</label>
                     <input type="text" id="box" name="box" th:field="*{box}" class="form-control" value="0" pattern="^[0-9]+$" maxlength="5"/>
+
+                    <td th:if="${#fields.hasErrors('box')}"><span style="color: red" th:each="err : ${#fields.errors('box')}" th:text="段ボールの個数を入力してください"></span></td>
+
+
                 </div>
                 <div class="form-group">
                     <label for="bed">ベッドの個数 (*半角数字)</label>
                     <input type="text" id="bed" name="bed" th:field="*{bed}" class="form-control" value="0" pattern="^[0-9]+$" maxlength="5"/>
+
+                    <td th:if="${#fields.hasErrors('bed')}"><span style="color: red" th:each="err : ${#fields.errors('bed')}" th:text="ベッドの個数を入力してください"></span></td>
+
+
                 </div>
                 <div class="form-group">
                     <label for="bicycle">自転車の個数 (*半角数字)</label>
                     <input type="text" id="bicycle" name="bicycle" th:field="*{bicycle}" class="form-control" value="0" pattern="^[0-9]+$" maxlength="5"/>
+
+                    <td th:if="${#fields.hasErrors('bicycle')}"><span style="color: red" th:each="err : ${#fields.errors('bicycle')}" th:text="自転車の台数を入力してください"></span></td>
+
+
+
+
                 </div>
                 <div class="form-group">
                     <label for="washingMachine">洗濯機の個数 (*半角数字)</label>
                     <input type="text" id="washingMachine" name="washingMachine" th:field="*{washingMachine}" class="form-control" value="0" pattern="^[0-9]+$" maxlength="5"/>
+
+                    <td th:if="${#fields.hasErrors('washingMachine')}"><span style="color: red" th:each="err : ${#fields.errors('washingMachine')}" th:text="洗濯機の台数を入力してください"></span></td>
+
                 </div>
                 <div class="form-group">
                     <label for="washingMachineInstallation">洗濯機の設置工事申し込み</label>
