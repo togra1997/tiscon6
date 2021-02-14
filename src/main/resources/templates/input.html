@@ -34,7 +34,28 @@
           <label for="email">連絡先メールアドレス</label>
           <input type="text" id="email" name="email" th:field="*{email}" class="form-control" value="test@test.com" placeholder="test@test.com" pattern="^([0-9A-za-z_\.\-]+@[0-9A-za-z_\.\-]+)$" required/>
         </div>
-        <br>
+
+        <div class="form-group">
+          <label for="email">確認用メールアドレス</label>
+          <input type="text" id="email2" name="email2"  class="form-control" placeholder="test@test.com" pattern="^([0-9A-za-z_\.\-]+@[0-9A-za-z_\.\-]+)$" required oninput="CheckEmail_2(this)"/>
+        </div>
+        <script language="JavaScript" type="text/javascript">
+<!--
+  function CheckEmail_2(input){
+    //IE対応の為変更
+    //var mail = email.value; //メールフォームの値を取得
+    var mail = document.getElementById("email").value; //メールフォームの値を取得
+    var mailConfirm = input.value; //メール確認用フォームの値を取得(引数input)
+
+    // パスワードの一致確認
+    if(mail != mailConfirm){
+      input.setCustomValidity('メールアドレスが一致しません'); // エラーメッセージのセット
+    }else{
+      input.setCustomValidity(''); // エラーメッセージのクリア
+    }
+  }
+// -->
+</script>
 
         <legend><b>お引越し情報</b></legend>
 
