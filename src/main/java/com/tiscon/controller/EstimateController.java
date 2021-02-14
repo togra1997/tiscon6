@@ -157,6 +157,7 @@ public class EstimateController {
 
         UserOrderDto dto = new UserOrderDto();
         BeanUtils.copyProperties(userOrderForm, dto);
+        dto.setTel(userOrderForm.getTel1()+userOrderForm.getTel2()+userOrderForm.getTel3());
         estimateService.registerOrder(dto);
 
         return "complete";

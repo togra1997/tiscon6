@@ -32,11 +32,10 @@
         </tr>
         <tr>
           <th>連絡先TEL</th>
-          <td><span th:text="*{tel}"></span></td>
-          <input type="hidden" name="tel" id="tel" th:value="*{tel}"/>
-
-          <td th:if="${#fields.hasErrors('tel')}"><span style="color: red" th:each="err : ${#fields.errors('tel')}" th:text="電話番号は半角数字で入力してください"></span></td>
-
+            <td><span th:text="*{tel1}+'-'+*{tel2}+'-'+*{tel3}"></span></td>
+            <input type="hidden" name="tel1" th:value="*{tel1}"/>
+            <input type="hidden" name="tel2" th:value="*{tel2}"/>
+            <input type="hidden" name="tel3" th:value="*{tel3}"/>
         </tr>
         <tr>
           <th>連絡先メールアドレス</th>
