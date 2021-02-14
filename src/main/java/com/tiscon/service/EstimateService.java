@@ -83,7 +83,28 @@ public class EstimateService {
                 + getBoxForPackage(dto.getWashingMachine(), PackageType.WASHING_MACHINE);
 
         // 箱に応じてトラックの種類が変わり、それに応じて料金が変わるためトラック料金を算出する。
-        int pricePerTruck = estimateDAO.getPricePerTruck(boxes);
+        // トラックを2台以上使う場合のアルゴリズムを実装。
+        // できるだけ4tトラックに詰めていく。4tが全て埋まったら残りは2tに。例: 900個→4t*4,2t*2。
+        // 端数は重量に応じて割り振る。例: 460個→4t*2,2t*1。500個4t*3。
+        // 一番安いトラックの組み合わせを保証。
+        // 1600個(全トラックを稼働させた際の運搬量)を超える場合の処理は未解決。
+        int pricePerTruck = 0;
+        if (boxes <= 1600) {
+            if (boxes <= 880) {
+                for (; boxes > 200; boxes -= 200) {
+                    pricePerTruck += estimateDAO.getPricePerTruck(200);
+                }
+            } else { //4tトラック使い切るケース。(4t*4+2t*1では足りない)
+                for (int count = 0; count < 4; count += 1) {
+                    pricePerTruck += estimateDAO.getPricePerTruck(200);
+                }
+                boxes -= 800;
+                for (; boxes > 80; boxes -= 80) {
+                    pricePerTruck += estimateDAO.getPricePerTruck(80);
+                }
+            }
+        }
+        pricePerTruck += estimateDAO.getPricePerTruck(boxes);
 
         int basicPrice = priceForDistance + pricePerTruck;
         int movingMonth = dto.getMovingMonth();
@@ -101,6 +122,10 @@ public class EstimateService {
         }
 
         return basicPrice + priceForOptionalService;
+    }
+
+    /**
+     nce + pricePerTruck + priceForOptionalService;
     }
 
     /**
