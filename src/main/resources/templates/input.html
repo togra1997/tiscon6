@@ -2,48 +2,48 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
-  <title>お見積り情報入力</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-  <link rel="stylesheet" th:href="@{http://fonts.googleapis.com/css?family=Exo:900}"
-        href="http://fonts.googleapis.com/css?family=Exo:900"/>
-  <link rel="stylesheet" th:href="@{/css/main.css}" href="../static/css/main.css">
+    <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
+    <title>お見積り情報入力</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{http://fonts.googleapis.com/css?family=Exo:900}"
+          href="http://fonts.googleapis.com/css?family=Exo:900"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}" href="../static/css/main.css">
 </head>
 
 <body>
 <nav th:insert="header.html :: header"></nav>
 <div class="container">
-  <form th:action="@{/submit}" th:object="${userOrderForm}" class="form-horizontal" method="post">
-    <h1>お見積り情報入力</h1>
-    <ul th:if="${#fields.hasErrors('all')}">
-      <li th:each="err : ${#fields.errors('all')}" th:text="${err}"></li>
-    </ul>
-    <div class="col-sm-12">
-      <fieldset>
-        <legend><b>個人情報</b></legend>
-        <div class="form-group">
-          <label for="customerName">氏名</label>
-          <input type="text" id="customerName" name="customerName" th:field="*{customerName}" class="form-control" value="山田太郎" required/>
-        </div>
-        <div class="form-group">
-          <label>連絡先TEL (*半角数字)</label>
-          <div class="form-inline">
-            <input type="tel" name="number1" th:field="*{tel1}" class="form-control" value="001" maxlength='5' size = "3" pattern="^[0-9]+$" required>
-            <b>&nbsp;-&nbsp;</b><input type="tel" name="number2" th:field="*{tel2}" class="form-control" value="001" maxlength='5' size = "3" pattern="^[0-9]+$" required>
-            <b>&nbsp;-&nbsp;</b><input type="tel" name="number3" th:field="*{tel3}" class="form-control" value="001" maxlength='5' size = "3" pattern="^[0-9]+$" required>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="email">連絡先メールアドレス</label>
-          <input type="text" id="email" name="email" th:field="*{email}" class="form-control" value="test@test.com" placeholder="test@test.com" pattern="^([0-9A-za-z_\.\-]+@[0-9A-za-z_\.\-]+)$" required/>
-        </div>
+    <form th:action="@{/submit}" th:object="${userOrderForm}" class="form-horizontal" method="post">
+        <h1>お見積り情報入力</h1>
+        <ul th:if="${#fields.hasErrors('all')}">
+            <li th:each="err : ${#fields.errors('all')}" th:text="${err}"></li>
+        </ul>
+        <div class="col-sm-12">
+            <fieldset>
+                <legend><b>個人情報</b></legend>
+                <div class="form-group">
+                    <label for="customerName">氏名</label>
+                    <input type="text" id="customerName" name="customerName" th:field="*{customerName}" class="form-control" value="山田太郎" required/>
+                </div>
+                <div class="form-group">
+                    <label>連絡先TEL (*半角数字)</label>
+                    <div class="form-inline">
+                        <input type="tel" name="number1" th:field="*{tel1}" class="form-control" value="001" maxlength='3' size = "3" pattern="^[0-9]+$" required>
+                        <b>&nbsp;-&nbsp;</b><input type="tel" name="number2" th:field="*{tel2}" class="form-control" value="001" maxlength='4' size = "3" pattern="^[0-9]+$" required>
+                        <b>&nbsp;-&nbsp;</b><input type="tel" name="number3" th:field="*{tel3}" class="form-control" value="001" maxlength='4' size = "3" pattern="^[0-9]+$" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">連絡先メールアドレス</label>
+                    <input type="text" id="email" name="email" th:field="*{email}" class="form-control" value="test@test.com" placeholder="test@test.com" pattern="^([0-9A-za-z_\.\-]+@[0-9A-za-z_\.\-]+)$" required/>
+                </div>
 
-        <div class="form-group">
-          <label for="email">確認用メールアドレス</label>
-          <input type="text" id="email2" name="email2"  class="form-control" placeholder="test@test.com" pattern="^([0-9A-za-z_\.\-]+@[0-9A-za-z_\.\-]+)$" required oninput="CheckEmail_2(this)"/>
-        </div>
-        <script language="JavaScript" type="text/javascript">
+                <div class="form-group">
+                    <label for="email">確認用メールアドレス</label>
+                    <input type="text" id="email2" name="email2"  class="form-control" placeholder="test@test.com" pattern="^([0-9A-za-z_\.\-]+@[0-9A-za-z_\.\-]+)$" required oninput="CheckEmail_2(this)"/>
+                </div>
+                <script language="JavaScript" type="text/javascript">
 <!--
   function CheckEmail_2(input){
     //IE対応の為変更
@@ -61,104 +61,105 @@
 // -->
 </script>
 
-        <legend><b>お引越し情報</b></legend>
+                <legend><b>お引越し情報</b></legend>
 
-        <div class="form-group">
-          <label for="movingMonth">引っ越し時期（月）</label><br>
-          <select id="movingMonth" name="movingMonth" class="form-control">
-            <option type="text" value="1" th:field="*{movingMonth}" selected>1</option>
-            <option type="text" value="2" th:field="*{movingMonth}">2</option>
-            <option type="text" value="3" th:field="*{movingMonth}">3</option>
-            <option type="text" value="4" th:field="*{movingMonth}">4</option>
-            <option type="text" value="5" th:field="*{movingMonth}">5</option>
-            <option type="text" value="6" th:field="*{movingMonth}">6</option>
-            <option type="text" value="7" th:field="*{movingMonth}">7</option>
-            <option type="text" value="8" th:field="*{movingMonth}">8</option>
-            <option type="text" value="9" th:field="*{movingMonth}">9</option>
-            <option type="text" value="10" th:field="*{movingMonth}">10</option>
-            <option type="text" value="11" th:field="*{movingMonth}">11</option>
-            <option type="text" value="12" th:field="*{movingMonth}">12</option>
-          </select>
-        </div>
+                <div class="form-group">
+                    <label for="movingMonth">引っ越し時期（月）</label><br>
+                    <select id="movingMonth" name="movingMonth" class="form-control">
+                        <option type="text" value="1" th:field="*{movingMonth}" selected>1</option>
+                        <option type="text" value="2" th:field="*{movingMonth}">2</option>
+                        <option type="text" value="3" th:field="*{movingMonth}">3</option>
+                        <option type="text" value="4" th:field="*{movingMonth}">4</option>
+                        <option type="text" value="5" th:field="*{movingMonth}">5</option>
+                        <option type="text" value="6" th:field="*{movingMonth}">6</option>
+                        <option type="text" value="7" th:field="*{movingMonth}">7</option>
+                        <option type="text" value="8" th:field="*{movingMonth}">8</option>
+                        <option type="text" value="9" th:field="*{movingMonth}">9</option>
+                        <option type="text" value="10" th:field="*{movingMonth}">10</option>
+                        <option type="text" value="11" th:field="*{movingMonth}">11</option>
+                        <option type="text" value="12" th:field="*{movingMonth}">12</option>
+                    </select>
+                </div>
 
 
-        <br><b>転居元</b>
-        <div class="form-group">
-          <label>郵便番号 (*半角数字 *空欄可)</label><br>
-          <input type="text" name="oldZip1" class="form-control-s," pattern="^[0-9]+$"　maxlength="3"> - <input  type="text" name="oldZip2" class="form-control-sm" onKeyUp="AjaxZip3.zip2addr('oldZip1','oldZip2','oldPrefectureId','oldAddress');" pattern="^[0-9]+$" maxlength="4">
-        </div>
-        <div class="form-group">
-          <label for="oldPrefectureId">転居元住所（都道府県）</label>
-          <select id="oldPrefectureId" name="oldPrefectureId" class="form-control">
-            <option th:each="prefecture : ${prefectures}" th:value="${prefecture.prefectureId}" th:field="*{oldPrefectureId}" required>[[${prefecture.prefectureName}]]</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="oldAddress">転居元住所（市区町村以下）</label>
-          <input type="text" id="oldAddress" name="oldAddress"  th:field="*{oldAddress}"
-                 class="form-control" value="新宿区西新宿1-1-1"/>
-        </div>
+                <br><b>転居元</b>
+                <div class="form-group">
+                    <label>郵便番号 (*半角数字 *空欄可)</label><br>
+                    <input type="text" name="oldZip1" class="form-control-s," pattern="^[0-9]+$"　maxlength="3"> - <input  type="text" name="oldZip2" class="form-control-sm" onKeyUp="AjaxZip3.zip2addr('oldZip1','oldZip2','oldPrefectureId','oldAddress');" pattern="^[0-9]+$" maxlength="4">
+                </div>
+                <div class="form-group">
+                    <label for="oldPrefectureId">転居元住所（都道府県）</label>
+                    <select id="oldPrefectureId" name="oldPrefectureId" class="form-control">
+                        <option th:each="prefecture : ${prefectures}" th:value="${prefecture.prefectureId}" th:field="*{oldPrefectureId}" required>[[${prefecture.prefectureName}]]</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="oldAddress">転居元住所（市区町村以下）</label>
+                    <input type="text" id="oldAddress" name="oldAddress"  th:field="*{oldAddress}"
+                           class="form-control" value="新宿区西新宿1-1-1"/>
+                </div>
 
-        <br>
-        <b>転居先</b>
-        <div class="form-group">
-          <label>郵便番号 (*半角数字 *空欄可)</label><br>
-          <input type="text" name="newZip1" class="form-control-s," pattern="^[0-9]+$"　maxlength="3"> - <input  type="text" name="newZip2" class="form-control-sm" onKeyUp="AjaxZip3.zip2addr('newZip1','newZip2','newPrefectureId','newAddress');" pattern="^[0-9]+$" maxlength="4">
-        </div>
-        <div class="form-group">
-          <label for="newPrefectureId">転居先住所（都道府県）</label>
-          <select id="newPrefectureId" name="newPrefectureId" class="form-control">
-            <option th:each="prefecture : ${prefectures}" th:value="${prefecture.prefectureId}" th:field="*{newPrefectureId}" required>[[${prefecture.prefectureName}]]</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="newAddress">転居先住所（市区町村以下）</label>
-          <input type="text" id="newAddress" name="newAddress" th:field="*{newAddress}" class="form-control" value="札幌市南区1" required/>
-        </div>
-      </fieldset>
-      <br>
+                <br>
+                <b>転居先</b>
+                <div class="form-group">
+                    <label>郵便番号 (*半角数字 *空欄可)</label><br>
+                    <input type="text" name="newZip1" class="form-control-s," pattern="^[0-9]+$"　maxlength="3"> - <input  type="text" name="newZip2" class="form-control-sm" onKeyUp="AjaxZip3.zip2addr('newZip1','newZip2','newPrefectureId','newAddress');" pattern="^[0-9]+$" maxlength="4">
+                </div>
+                <div class="form-group">
+                    <label for="newPrefectureId">転居先住所（都道府県）</label>
+                    <select id="newPrefectureId" name="newPrefectureId" class="form-control">
+                        <option th:each="prefecture : ${prefectures}" th:value="${prefecture.prefectureId}" th:field="*{newPrefectureId}" required>[[${prefecture.prefectureName}]]</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="newAddress">転居先住所（市区町村以下）</label>
+                    <input type="text" id="newAddress" name="newAddress" th:field="*{newAddress}" class="form-control" value="札幌市南区1" required/>
+                </div>
+            </fieldset>
+            <br>
 
-      <fieldset>
-        <legend><b>荷物情報</b> </legend>
-        <div class="form-group">
-          <label for="box">段ボールの個数 (*半角数字)</label>
-          <input type="text" id="box" name="box" th:field="*{box}" class="form-control" value="0" pattern="^[0-9]+$" required maxlength="5"/>
-        </div>
-        <div class="form-group">
-          <label for="bed">ベッドの個数 (*半角数字)</label>
-          <input type="text" id="bed" name="bed" th:field="*{bed}" class="form-control" value="0" pattern="^[0-9]+$" required maxlength="5"/>
-        </div>
-        <div class="form-group">
-          <label for="bicycle">自転車の個数 (*半角数字)</label>
-          <input type="text" id="bicycle" name="bicycle" th:field="*{bicycle}" class="form-control" value="0" pattern="^[0-9]+$" required maxlength="5"/>
-        </div>
-        <div class="form-group">
-          <label for="washingMachine">洗濯機の個数 (*半角数字)</label>
-          <input type="text" id="washingMachine" name="washingMachine" th:field="*{washingMachine}" class="form-control" value="0" pattern="^[0-9]+$" required maxlength="5"/>
-        </div>
-        <div class="form-group">
-          <label for="washingMachineInstallation">洗濯機の設置工事申し込み</label>
-          <select id="washingMachineInstallation" name="washingMachineInstallation" class="form-control"
-                  th:field="*{washingMachineInstallation}">
-            <option th:value="false" th:text="なし">なし</option>
-            <option th:value="true" th:text="あり">あり</option>
-          </select>
-        </div>
-      </fieldset>
-      <br>
+            <fieldset>
+                <legend><b>荷物情報</b> </legend>
+                <div class="form-group">
+                    <label for="box">段ボールの個数 (*半角数字)</label>
+                    <input type="text" id="box" name="box" th:field="*{box}" class="form-control" value="0" pattern="^[0-9]+$" required maxlength="5"/>
+                </div>
+                <div class="form-group">
+                    <label for="bed">ベッドの個数 (*半角数字)</label>
+                    <input type="text" id="bed" name="bed" th:field="*{bed}" class="form-control" value="0" pattern="^[0-9]+$" required maxlength="5"/>
+                </div>
+                <div class="form-group">
+                    <label for="bicycle">自転車の個数 (*半角数字)</label>
+                    <input type="text" id="bicycle" name="bicycle" th:field="*{bicycle}" class="form-control" value="0" pattern="^[0-9]+$" required maxlength="5"/>
+                </div>
+                <div class="form-group">
+                    <label for="washingMachine">洗濯機の個数 (*半角数字)</label>
+                    <input type="text" id="washingMachine" name="washingMachine" th:field="*{washingMachine}" class="form-control" value="0" pattern="^[0-9]+$" required maxlength="5"/>
+                </div>
+                <div class="form-group">
+                    <label for="washingMachineInstallation">洗濯機の設置工事申し込み</label>
+                    <select id="washingMachineInstallation" name="washingMachineInstallation" class="form-control"
+                            th:field="*{washingMachineInstallation}">
+                        <option th:value="false" th:text="なし">なし</option>
+                        <option th:value="true" th:text="あり">あり</option>
+                    </select>
+                </div>
+            </fieldset>
+            <br>
 
-      <div class="form-group">
-        <div class="text-center">
-          <button type="button" name="backToTop" onclick="submit();" class="btn btn-primary">TOPへ戻る</button>
-          <button type="submit" name="confirm" class="btn btn-primary">確認</button>
+            <div class="form-group">
+                <div class="text-center">
+                    <button type="submit" name="confirm" class="btn btn-primary">確認</button>
+                    <button type="submit" name="backToTop"  class="btn btn-primary" formnovalidate>TOPへ戻る</button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </form>
+    </form>
 </div>
 <script src="../js/jquery-3.5.1.min.js" th:src="@{/js/jquery-3.5.1.min.js}"></script>
 <script src="../js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
 <script src="../js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+
 </body>
 
 </html>
