@@ -20,6 +20,8 @@ public class Customer implements Serializable {
 
     private String newAddress;
 
+    private int movingMonth;
+
     public int getCustomerId() {
         return customerId;
     }
@@ -82,5 +84,13 @@ public class Customer implements Serializable {
 
     public void setNewAddress(String newAddress) {
         this.newAddress = newAddress;
+    }
+
+    public int getMovingMonth() {
+        return movingMonth;
+    }
+
+    public void setMovingMonth(int movingMonth) {
+        this.movingMonth = movingMonth;
     }
 }
