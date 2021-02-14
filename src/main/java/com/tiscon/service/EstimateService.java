@@ -117,10 +117,6 @@ public class EstimateService {
     }
 
     /**
-     nce + pricePerTruck + priceForOptionalService;
-    }
-
-    /**
      * 荷物当たりの段ボール数を算出する。
      *
      * @param packageNum 荷物数
