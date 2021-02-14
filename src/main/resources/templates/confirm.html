@@ -15,9 +15,7 @@
 <div class="container">
   <form th:action="@{/result}" th:object="${userOrderForm}" class="form-horizontal" method="post">
     <h1>お見積り情報確認</h1>
-    <ul th:if="${#fields.hasErrors('all')}">
-      <li th:each="err : ${#fields.errors('all')}" th:text="${err}"></li>
-    </ul>
+
     <div class="col-sm-12">
       <h4>個人情報</h4>
       <table class="table table-bordered">
@@ -28,16 +26,25 @@
           <th style="width: 40%">氏名</th>
           <td><span th:text="*{customerName}"></span></td>
           <input type="hidden" name="customerName" id="customerName" th:value="*{customerName}"/>
+
+          <td th:if="${#fields.hasErrors('customerName')}"><span style="color: red" th:each="err : ${#fields.errors('customerName')}" th:text="名前が入力してください"></span></td>
+
         </tr>
         <tr>
           <th>連絡先TEL</th>
           <td><span th:text="*{tel}"></span></td>
           <input type="hidden" name="tel" id="tel" th:value="*{tel}"/>
+
+          <td th:if="${#fields.hasErrors('tel')}"><span style="color: red" th:each="err : ${#fields.errors('tel')}" th:text="電話番号は半角数字で入力してください"></span></td>
+
         </tr>
         <tr>
           <th>連絡先メールアドレス</th>
           <td><span th:text="*{email}"></span></td>
           <input type="hidden" name="email" id="email" th:value="*{email}"/>
+
+          <td th:if="${#fields.hasErrors('email')}"><span style="color: red" th:each="err : ${#fields.errors('email')}" th:text="メールアドレスを半角英数字で入力してください"></span></td>
+
         </tr>
         <tr>
           <th>転居元住所（都道府県）</th>
@@ -45,11 +52,15 @@
             <span th:each="prefecture : ${prefectures}" th:text="${prefecture.prefectureName}" th:if="${prefecture.prefectureId}==*{oldPrefectureId}">東京</span>
           </td>
           <input type="hidden" name="oldPrefectureId" id="oldPrefectureId" th:value="*{oldPrefectureId}"/>
+
         </tr>
         <tr>
           <th>転居元住所（市区町村以下）</th>
           <td><span th:text="*{oldAddress}"></span></td>
           <input type="hidden" name="oldAddress" id="oldAddress" th:value="*{oldAddress}"/>
+
+          <td th:if="${#fields.hasErrors('oldAddress')}"><span style="color: red" th:each="err : ${#fields.errors('oldAddress')}" th:text="転居元の住所を記入してください"></span></td>
+
         </tr>
         <tr>
           <th>転居先住所（都道府県）</th>
@@ -62,6 +73,9 @@
           <th>転居先住所（市区町村以下）</th>
           <td><span th:text="*{newAddress}"></span></td>
           <input type="hidden" name="newAddress" id="newAddress" th:value="*{newAddress}"/>
+
+          <td th:if="${#fields.hasErrors('newAddress')}"><span style="color: red" th:each="err : ${#fields.errors('newAddress')}" th:text="転居先の住所を記入してください"></span></td>
+
         </tr>
         </tbody>
       </table>
@@ -74,21 +88,33 @@
           <th style="width: 40%">段ボールの個数</th>
           <td><span th:text="*{box}"></span></td>
           <input type="hidden" name="box" id="box" th:value="*{box}"/>
+
+          <td th:if="${#fields.hasErrors('box')}"><span style="color: red" th:each="err : ${#fields.errors('box')}" th:text="段ボールの個数を入力してください"></span></td>
+
         </tr>
         <tr>
           <th>ベッドの個数</th>
           <td><span th:text="*{bed}"></span></td>
           <input type="hidden" name="bed" id="bed" th:value="*{bed}"/>
+
+          <td th:if="${#fields.hasErrors('bed')}"><span style="color: red" th:each="err : ${#fields.errors('bed')}" th:text="ベッドの個数を入力してください"></span></td>
+
         </tr>
         <tr>
           <th>自転車の個数</th>
           <td><span th:text="*{bicycle}"></span></td>
           <input type="hidden" name="bicycle" id="bicycle" th:value="*{bicycle}"/>
+
+          <td th:if="${#fields.hasErrors('bicycle')}"><span style="color: red" th:each="err : ${#fields.errors('bicycle')}" th:text="自転車の台数を入力してください"></span></td>
+
         </tr>
         <tr>
           <th>洗濯機の個数</th>
           <td><span th:text="*{washingMachine}"></span></td>
           <input type="hidden" name="washingMachine" id="washingMachine" th:value="*{washingMachine}"/>
+
+          <td th:if="${#fields.hasErrors('washingMachine')}"><span style="color: red" th:each="err : ${#fields.errors('washingMachine')}" th:text="洗濯機の台数を入力してください"></span></td>
+
         </tr>
         <tr>
           <th>洗濯機の設置工事申し込み</th>
