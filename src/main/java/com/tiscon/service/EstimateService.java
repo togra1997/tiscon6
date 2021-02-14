@@ -7,6 +7,7 @@ import com.tiscon.domain.Customer;
 import com.tiscon.domain.CustomerOptionService;
 import com.tiscon.domain.CustomerPackage;
 import com.tiscon.dto.UserOrderDto;
+import com.tiscon.exception.BoxesLimitExceededException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,7 +70,7 @@ public class EstimateService {
      * @param dto 見積もり依頼情報
      * @return 概算見積もり結果の料金
      */
-    public Integer getPrice(UserOrderDto dto) {
+    public Integer getPrice(UserOrderDto dto) throws BoxesLimitExceededException {
         double distance = estimateDAO.getDistance(dto.getOldPrefectureId(), dto.getNewPrefectureId());
         // 小数点以下を切り捨てる
         int distanceInt = (int) Math.floor(distance);
@@ -103,6 +104,8 @@ public class EstimateService {
                     pricePerTruck += estimateDAO.getPricePerTruck(80);
                 }
             }
+        } else {
+            throw new BoxesLimitExceededException("荷物の量が上限を越えています。");
         }
         pricePerTruck += estimateDAO.getPricePerTruck(boxes);
 

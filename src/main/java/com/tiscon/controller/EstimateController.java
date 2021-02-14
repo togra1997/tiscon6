@@ -2,6 +2,7 @@ package com.tiscon.controller;
 
 import com.tiscon.dao.EstimateDao;
 import com.tiscon.dto.UserOrderDto;
+import com.tiscon.exception.BoxesLimitExceededException;
 import com.tiscon.form.UserOrderForm;
 import com.tiscon.service.EstimateService;
 import org.springframework.beans.BeanUtils;
@@ -130,10 +131,17 @@ public class EstimateController {
         // 料金の計算を行う。
         UserOrderDto dto = new UserOrderDto();
         BeanUtils.copyProperties(userOrderForm, dto);
-        Integer price = estimateService.getPrice(dto);
-
         model.addAttribute("prefectures", estimateDAO.getAllPrefectures());
         model.addAttribute("userOrderForm", userOrderForm);
+
+        Integer price;
+        try {
+            price = estimateService.getPrice(dto);
+        } catch (BoxesLimitExceededException e) {
+            model.addAttribute("boxesLimitExceeded", true);
+            return "confirm";
+        }
+
         model.addAttribute("price", price);
         return "result";
     }

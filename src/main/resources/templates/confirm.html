@@ -15,7 +15,9 @@
 <div class="container">
   <form th:action="@{/result}" th:object="${userOrderForm}" class="form-horizontal" method="post">
     <h1>お見積り情報確認</h1>
-
+    <div th:if="${boxesLimitExceeded}">
+      <h2><font color="#ff0000">お荷物の個数が弊社でお取り扱い可能な上限を超えています。</font></h2>
+    </div>
     <div class="col-sm-12">
       <h4>個人情報</h4>
       <table class="table table-bordered">
@@ -84,6 +86,9 @@
         </tbody>
       </table>
       <h4>荷物情報</h4>
+      <div th:if="${boxesLimitExceeded}">
+        <h4><font color="ff0000">お荷物の個数を見直してください。</font></h4>
+      </div>
       <table class="table table-bordered">
         <col span="1" style="background-color: #A9B7C7;">
         <col span="2" style="background-color: #FFFFFF;">
